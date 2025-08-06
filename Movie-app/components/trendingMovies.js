@@ -10,7 +10,7 @@ const TrendingMovies = ({ data }) => {
 
     return (
         <View className="w-full ">
-            <Text className="text-white text-xl">Trending</Text>
+            <Text className="text-white ml-4 text-xl">Trending</Text>
             <View className="flex-1 items-center mt-4">
                 <Carousel
                     data={data}

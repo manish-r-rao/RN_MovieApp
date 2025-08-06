@@ -5,22 +5,14 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import "../global.css"
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="MovieScreen" options={{headerShown:false}}/>
+        <Stack.Screen name="PersonScreen" options={{headerShown:false}}/>
+        <Stack.Screen name="SearchScreen" options={{headerShown:false}}/>
         <Stack.Screen name="+not-found" />
       </Stack>
   );
