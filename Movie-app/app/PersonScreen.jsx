@@ -1,18 +1,38 @@
 import { View, Text, ScrollView, Pressable, Image, Dimensions } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
+import Loading from "../components/Loading"
+import {castData, image} from "../api/movieDB"
 
 const { height, width } = Dimensions.get("window");
 
 const PersonScreen = () => {
 
   const router = useRouter();
+  const [load,isLoad]=useState(false);
+  const [personData,setPersonData]=useState({});
+
+  const item=useLocalSearchParams();
+
+  const getPersonDetails=async()=>{
+    console.log(item)
+    const data=await castData(item.id)
+    setPersonData(data)
+  }
+
+  useEffect(()=>{
+    getPersonDetails()
+  },[])
 
   return (
     <View className="flex-1 bg-neutral-800">
-      <ScrollView
+      {
+        load ? 
+        <Loading></Loading> :
+        <ScrollView
         contentContainerStyle={{ paddingBottom: 20 }}
         className=" mx-4 flex-1 bg-neutral-800"
       >
@@ -48,7 +68,7 @@ const PersonScreen = () => {
                 }}
             >
               <Image
-                source={require("../assets/images/modi.webp")}
+                source={{uri : image(personData.profile_path)}}
                 style={{
                   width: width * 0.7,
                   height: height * 0.33
@@ -56,27 +76,29 @@ const PersonScreen = () => {
               ></Image>
             </View>
           </View>
-          <Text className="text-3xl text-white font-semibold tracking-wide text-center mt-4">Narendra Modi</Text>
-          <Text className="text-neutral-400 text-base mt-1 text-center tracking-wide">Ahmedabad, Gujarat</Text>
+          <Text className="text-3xl text-white font-semibold tracking-wide text-center mt-4">{personData.name}</Text>
+          <Text className="text-neutral-400 text-base mt-1 text-center tracking-wide"></Text>
           <View className="bg-neutral-700 mt-4 p-6 rounded-full flex-row justify-between">
             <View className="border-r-2 border-r-neutral-200 px-7 items-center">
               <Text className="text-white font-semibold text-base">Gender</Text>
-              <Text className="text-neutral-400 text-base font-medium">Male</Text>
+              <Text className="text-neutral-400 text-base font-medium">{personData.gender === 1 ? "Female" : "Male"}</Text>
             </View>
             <View className="border-r-2 border-r-neutral-200 px-5 items-center">
               <Text className="text-white font-semibold text-base">Birthday</Text>
-              <Text className="text-neutral-400 text-base font-medium">10-11-2004</Text>
+              <Text className="text-neutral-400 text-base font-medium">{personData.birthday}</Text>
             </View>
             <View className=" px-5 items-center">
               <Text className="text-white font-semibold text-base">Popularity</Text>
-              <Text className="text-neutral-400 text-base font-medium">2 M</Text>
+              <Text className="text-neutral-400 text-base font-medium">{personData.popularity} M</Text>
             </View>
             
           </View>
           <Text className="text-white text-2xl font-semibold tracking-wide mt-5">Biography</Text>
-          <Text className="text-sm tracking-wide  mt-2 text-neutral-400">Running application "main" with appParamsRunning application "main" with appParamsRunning application "main" with appParamsRunning application "main" with appParamsRunning application "main" with appParamsRunning application "main" with appParamsRunning application "main" with appParams</Text>
+          <Text className="text-sm tracking-wide  mt-2 text-neutral-400">{personData.biography === "" ? "Very great Artist" : personData.biography}</Text>
         </View>
       </ScrollView>
+      }
+      
     </View>
   )
 }

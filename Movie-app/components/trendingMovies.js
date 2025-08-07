@@ -2,12 +2,11 @@ import { View, Text, Pressable, ImageBase, Image } from "react-native";
 import React, { useEffect } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import apiData from "./apiData"
-
+import {image} from "../api/movieDB"
+import { router } from "expo-router";
 
 // const {height,width};
 const TrendingMovies = ({ data }) => {
-
-
     return (
         <View className="w-full ">
             <Text className="text-white ml-4 text-xl">Trending</Text>
@@ -16,7 +15,7 @@ const TrendingMovies = ({ data }) => {
                     data={data}
                     renderItem={({ item }) => (
                         <View>
-                            <MovieCard></MovieCard>
+                            <MovieCard item={item}></MovieCard>
                         </View>
                     )}
                     scrollAnimationDuration={2000}
@@ -30,12 +29,13 @@ const TrendingMovies = ({ data }) => {
     );
 };
 
-const MovieCard = () => {
+const MovieCard = ({item}) => {
     return (
         <Pressable
+            onPress={()=>{router.push({pathname:"/MovieScreen",params:item})}}
         >
             <Image
-                source={require("../assets/images/3RokBWEkQqJRZEVP3DPwGm5MYh6.webp")}
+                source={{uri : image(item.poster_path)}}
                 style={{
                     width: 200,
                     height: 300

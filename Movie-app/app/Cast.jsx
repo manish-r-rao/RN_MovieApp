@@ -1,12 +1,13 @@
 import { View, Text, ScrollView, Pressable, Image } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router'
+import {image} from "../api/movieDB"
 
 const Cast = ({ cast }) => {
 
   const personName = "Sudip"
   const characterName = "Kempe Gowda"
-
+  
   const router=useRouter();
 
   return (
@@ -16,14 +17,14 @@ const Cast = ({ cast }) => {
         horizontal
         showsHorizontalScrollIndicator={false}
       >
-        {cast.map((item) => {
+        {cast?.map((item) => {
           return (
             <View className="mr-4 mt-4">
               <Pressable
-                onPress={()=>router.push("./PersonScreen")}
+                onPress={()=>router.push({pathname:"./PersonScreen",params:item})}
               >
                 <Image
-                  source={require("../assets/images/modi.webp")}
+                  source={{uri : image(item.profile_path)}}
                   className="rounded-full"
                   style={{
                     width: 80,
@@ -35,8 +36,8 @@ const Cast = ({ cast }) => {
                 >
                 </Image>
               </Pressable>
-              <Text className="text-white text-center">{characterName.length > 10 ? characterName.slice(0, 10) + "..." : characterName}</Text>
-              <Text className="text-white text-center"> {personName}</Text>
+              <Text className="text-white text-center">{item.character?.length > 10 ? item.character.slice(0, 10) + "..." : item.character}</Text>
+              <Text className="text-white text-center"> {item.name?.length > 10 ? item.name.slice(0, 10) + "..." : item.name}</Text>
             </View>
           )
         })}

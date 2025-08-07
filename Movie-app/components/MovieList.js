@@ -1,6 +1,7 @@
 import { View, Text, Pressable, ScrollView, Image, Dimensions } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
+import {image } from "../api/movieDB"
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,11 +30,11 @@ const MovieList = ({ title, data, hideSeeAll }) => {
               return (
                 <><View>
                   <Pressable
-                    onPress={() => { router.push("/MovieScreen", item) }}
+                    onPress={() => { router.push({pathname:"/MovieScreen" , params:item}) }}
                   >
                     <View className='mr-4'>
                       <Image
-                        source={require("../assets/images/3RokBWEkQqJRZEVP3DPwGm5MYh6.webp")}
+                        source={{uri : image(item.poster_path)}}
                         style={{
                           width: width * 0.3,
                           height: height * 0.25
@@ -42,8 +43,9 @@ const MovieList = ({ title, data, hideSeeAll }) => {
                       ></Image>
                     </View>
                   </Pressable>
-                  <Text className='text-white ml-1'>{
-                    item.length > 14 ? item.slice(0, 14) + "..." : item
+                  <Text className='text-white -ml-4 text-center'>{
+                    typeof item.title === "string" ?
+                     item.title.length > 15 ? item.title.slice(0,15)+"..." : item.title :""
                   }</Text>
                 </View></>
               )
