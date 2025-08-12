@@ -81,7 +81,7 @@ const MovieScreen = () => {
               {/* movie details */}
               <View>
                 <Text className="w-full text-white font-semibold text-center text-3xl tracking-wider -mt-4">{item.title}</Text>
-                <Text className="text-neutral-400 font-semibold text-base text-center tracking-wide mt-1">{movieData.status}  •  {movieData.release_date?.slice(0, 4)}  •  {movieData.runtime} min</Text>
+                <Text className="text-neutral-400 font-semibold text-base text-center tracking-wide mt-1">{movieData.status ? movieData.status + "  •  " : null}{movieData.release_date?.slice(0, 4)}  •  {movieData.runtime} min</Text>
                 <View className="flex-row justify-center">
                   {movieData.genres?.map((item, index) => {
 

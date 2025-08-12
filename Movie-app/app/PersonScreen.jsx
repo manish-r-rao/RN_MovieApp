@@ -94,7 +94,7 @@ const PersonScreen = () => {
             
           </View>
           <Text className="text-white text-2xl font-semibold tracking-wide mt-5">Biography</Text>
-          <Text className="text-sm tracking-wide  mt-2 text-neutral-400">{personData.biography === "" ? "Very great Artist" : personData.biography}</Text>
+          <Text className="text-sm tracking-wide  mt-2 text-neutral-400">{personData.biography === "" ? "Very great Artist who played a wonderfull role in different movies. One of the finest actors in film industry who dives into his character and performs as a very responsible actor." : personData.biography}</Text>
         </View>
       </ScrollView>
       }

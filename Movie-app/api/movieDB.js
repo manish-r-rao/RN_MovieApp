@@ -1,6 +1,7 @@
 import { apiKey } from "../constants/apiKey";
 import axios from "axios"
 
+
 const API_BASE_URL="https://api.themoviedb.org/3";
 
 const trendingApi=`${API_BASE_URL}/trending/movie/day?api_key=${apiKey}`
@@ -48,7 +49,9 @@ const apiCall=async (endpoint, params)=>{
   }
 }
 
-export const image=(path)=>path ? `https://image.tmdb.org/t/p/original/${path}` : {}
+const fallBackImage="https://media.istockphoto.com/id/526947869/vector/man-silhouette-profile-picture.jpg?s=612x612&w=0&k=20&c=5I7Vgx_U6UPJe9U2sA2_8JFF4grkP7bNmDnsLXTYlSc="
+
+export const image=(path)=>path ? `https://image.tmdb.org/t/p/original/${path}` : fallBackImage
 
 
 export const trending=()=>{

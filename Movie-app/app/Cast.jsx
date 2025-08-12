@@ -5,7 +5,7 @@ import {image} from "../api/movieDB"
 
 const Cast = ({ cast }) => {
 
-  const personName = "Sudip"
+  let imagePath ="";
   const characterName = "Kempe Gowda"
   
   const router=useRouter();
@@ -24,7 +24,7 @@ const Cast = ({ cast }) => {
                 onPress={()=>router.push({pathname:"./PersonScreen",params:item})}
               >
                 <Image
-                  source={{uri : image(item.profile_path)}}
+                  source={{uri : image((item.profile_path))}}
                   className="rounded-full"
                   style={{
                     width: 80,
